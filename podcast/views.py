@@ -48,7 +48,7 @@ show_list = ShowList.as_view()
 class ShowListAtom(DetailView):
     model = Show
     template_name = 'podcast/show_feed_atom.html'
-    content_type = 'application/rss+xml'
+    content_type = 'text/xml'
 show_list_atom = ShowListAtom.as_view()
 
 
