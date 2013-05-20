@@ -9,6 +9,17 @@ Django and Python version
 
 django-podcast is in the middle of a re-factor. Previously it worked with Django 1.0 but I recommend Django 1.1 because we'll develop against it.
 
+UDOX Fork
+---------
+
+We've amended this so that the file field is now a ``FilePathField``. This allows
+users to upload their podcast using a (S)FTP client instead and pick it from the admin.
+
+Our aim for this was to allow users to carry on uploading the rather large (~100Mb)
+files without having to implement something fancy on the admin side for reliably
+working with such size uploads.
+
+
 Installation
 ============
 
@@ -20,6 +31,14 @@ Add ``podcast`` as a tuple item to your ``INSTALLED_APPS`` in ``settings.py``::
       ...
     )
 
+*The following applies to this fork only!* Add the following two settings:
+
+    PODCAST_UPLOAD_FOLDER = '/var/www/podcasts'  # File system location for your podcasts
+    PODCAST_BASE_URL = '/podcasts/media'  # Location they are served from on the web side
+
+Note that ``PODCAST_BASE_URL`` is usually handled by the upstream http server such
+as nginx or apache. For development you may want to include a ``static_serve`` view.
+
 Add these lines to your URL configuration, ``urls.py``::
 
     urlpatterns += patterns('',
@@ -27,6 +46,8 @@ Add these lines to your URL configuration, ``urls.py``::
     )
 
 Run the Django's ``syncdb`` command.
+
+# Podcasts
 
 
 Dependencies
@@ -139,3 +160,5 @@ Support
 Please `file an issue` if you find a problem with this application, and if you're feeling generous a patch to go with it. Help me help you!
 
 If you used this Django application, I'd love to see it in action, and if you have suggestions or feature requests, drop Rich a line at rich@richardcornish.com or Jeff at jeff.triplett@gmail.com and let us know.
+
+This fork is from `UDOX <http://u-dox.com>`_.

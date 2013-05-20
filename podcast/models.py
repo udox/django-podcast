@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.contrib.sites.models import Site
 from django.core.files.storage import get_storage_class
 from django.db.utils import load_backend
 
@@ -524,7 +525,7 @@ class Enclosure(models.Model):
         ('SHA-1', 'SHA-1'),
     )
     title = models.CharField(max_length=255, blank=True, help_text='Title is generally only useful with multiple enclosures.')
-    file = models.FileField(upload_to='podcasts/episodes/files/', storage=PODCAST_STORAGE(), help_text='Either upload or use the "Player" text box below. If uploading, file must be less than or equal to 30 MB for a Google video sitemap.', blank=True, null=True)
+    file = models.FilePathField(path=settings.PODCAST_UPLOAD_FOLDER, blank=True, null=True)
     mime = models.CharField('Format', max_length=255, choices=MIME_CHOICES, default='video/mp4', blank=True)
     medium = models.CharField(max_length=255, blank=True, choices=MEDIUM_CHOICES)
     expression = models.CharField(max_length=25, blank=True, choices=EXPRESSION_CHOICES, default='Full')
@@ -539,6 +540,11 @@ class Enclosure(models.Model):
     width = models.PositiveIntegerField(blank=True, null=True, help_text='Width of the browser window in <br />which the URL should be opened. <br />YouTube\'s default is 425.')
     height = models.PositiveIntegerField(blank=True, null=True, help_text='Height of the browser window in <br />which the URL should be opened. <br />YouTube\'s default is 344.')
     episode = models.ForeignKey(Episode, help_text='Include any number of media files; for example, perhaps include an iPhone-optimized, AppleTV-optimized and Flash Video set of video files. Note that the iTunes feed only accepts the first file. More uploading is available after clicking "Save and continue editing."')
+
+    def file_url(self):
+        file_base_uri = self.file.replace(settings.PODCAST_UPLOAD_FOLDER, '')
+        current_site = Site.objects.get_current()
+        return 'http://%s%s%s' % (current_site.domain, settings.PODCAST_BASE_URL, file_base_uri)
 
     class Meta:
         ordering = ['mime', 'file']
