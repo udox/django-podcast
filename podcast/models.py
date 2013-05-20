@@ -437,7 +437,7 @@ class Episode(models.Model):
     author = models.ManyToManyField(User, related_name='episode_authors', help_text='Remember to save the user\'s name and e-mail address in the <a href="../../../auth/user/">User application</a>.')
     title_type = models.CharField('Title type', max_length=255, blank=True, default='Plain', choices=TYPE_CHOICES)
     title = models.CharField(max_length=255, help_text='Make it specific but avoid explicit language. Limit to 100 characters for a Google video sitemap.')
-    slug = models.SlugField(unique=True, help_text='Auto-generated from Title.')
+    slug = models.SlugField(unique=True, help_text='Auto-generated from Title.', max_length=255)
     description_type = models.CharField('Description type', max_length=255, blank=True, default='Plain', choices=TYPE_CHOICES)
     description = models.TextField(help_text='Avoid explicit language. Google video sitempas allow 2,048 characters.')
     captions = models.FileField(upload_to='podcasts/episodes/captions/', storage=PODCAST_STORAGE(), help_text='For video podcasts. Good captioning choices include <a href="http://en.wikipedia.org/wiki/SubViewer">SubViewer</a>, <a href="http://en.wikipedia.org/wiki/SubRip">SubRip</a> or <a href="http://www.w3.org/TR/ttaf1-dfxp/">TimedText</a>.', blank=True)
