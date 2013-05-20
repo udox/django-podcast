@@ -35,7 +35,7 @@ Add ``podcast`` as a tuple item to your ``INSTALLED_APPS`` in ``settings.py``::
       ...
     )
 
-*The following applies to this fork only!* Add the following two settings:
+*The following applies to this fork only!* Add the following two settings::
 
     PODCAST_UPLOAD_FOLDER = '/var/www/podcasts'  # File system location for your podcasts
     PODCAST_BASE_URL = '/podcasts/media'  # Location they are served from on the web side
