@@ -7,7 +7,11 @@ django-podcast
 Django and Python version
 =========================
 
-django-podcast is in the middle of a re-factor. Previously it worked with Django 1.0 but I recommend Django 1.1 because we'll develop against it.
+This is tested against django 1.5.1 (the current stable release as of May 2013) and it works perfectly
+well. You shouldn't have any problem dropping this into a django project from 1.3 onwards.
+
+The ``views`` are implementing using the class based views so earlier versions will
+not work.
 
 UDOX Fork
 ---------
