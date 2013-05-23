@@ -1,3 +1,4 @@
+import os
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -540,6 +541,13 @@ class Enclosure(models.Model):
     width = models.PositiveIntegerField(blank=True, null=True, help_text='Width of the browser window in <br />which the URL should be opened. <br />YouTube\'s default is 425.')
     height = models.PositiveIntegerField(blank=True, null=True, help_text='Height of the browser window in <br />which the URL should be opened. <br />YouTube\'s default is 344.')
     episode = models.ForeignKey(Episode, help_text='Include any number of media files; for example, perhaps include an iPhone-optimized, AppleTV-optimized and Flash Video set of video files. Note that the iTunes feed only accepts the first file. More uploading is available after clicking "Save and continue editing."')
+
+    def file_size(self):
+        try:
+            stats = os.stat(self.file)
+            return stats.st_size
+        except OSError:
+            return 0
 
     def file_url(self):
         file_base_uri = self.file.replace(settings.PODCAST_UPLOAD_FOLDER, '')
