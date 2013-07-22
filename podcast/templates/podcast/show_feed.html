@@ -15,7 +15,7 @@
     <docs>http://blogs.law.harvard.edu/tech/rss</docs>
     {% if object.ttl %}<ttl>{{ object.ttl }}</ttl>{% endif %}
     {% if object.image %}<image>
-      <url>{{ object.image.url }}</url>
+      <url>http{% if request.is_secure %}s{% endif %}://{{ request.get_host }}{{ object.image.url }}</url>
       <title>{{ object.title }}</title>
       <link>{{ object.link }}</link>
     </image>{% endif %}
@@ -26,7 +26,7 @@
     </itunes:owner>
     {% if object.subtitle %}<itunes:subtitle>{{ object.subtitle }}</itunes:subtitle>{% endif %}
     <itunes:summary>{% if object.summary %}{{ object.summary|striptags }}{% else %}{{ object.description|striptags }}{% endif %}</itunes:summary>
-    {% if object.image %}<itunes:image href="http{% if request.is_secure %}s{% endif %}://{{ SITE.domain }}{{ object.image.url }}" />{% endif %}
+    {% if object.image %}<itunes:image href="http{% if request.is_secure %}s{% endif %}://{{ request.get_host }}{{ object.image.url }}" />{% endif %}
     {% if object.category.all %}{% for category in object.category.all %}{% if category.name %}<itunes:category text="{{ category.parent.name }}">
       <itunes:category text="{{ category.name }}" />
     </itunes:category>
