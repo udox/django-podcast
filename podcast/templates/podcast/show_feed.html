@@ -26,7 +26,7 @@
     </itunes:owner>
     {% if object.subtitle %}<itunes:subtitle>{{ object.subtitle }}</itunes:subtitle>{% endif %}
     <itunes:summary>{% if object.summary %}{{ object.summary|striptags }}{% else %}{{ object.description|striptags }}{% endif %}</itunes:summary>
-    {% if object.image %}<itunes:image href="{{ object.image.url }}" />{% endif %}
+    {% if object.image %}<itunes:image href="http{% if request.is_secure %}s{% endif %}://{{ SITE.domain }}{{ object.image.url }}" />{% endif %}
     {% if object.category.all %}{% for category in object.category.all %}{% if category.name %}<itunes:category text="{{ category.parent.name }}">
       <itunes:category text="{{ category.name }}" />
     </itunes:category>
