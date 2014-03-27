@@ -19,6 +19,8 @@ UDOX Fork
 We've amended this so that the file field is now a ``FilePathField``. This allows
 users to upload their podcast using a (S)FTP client instead and pick it from the admin.
 
+An additional ``New Feed Url`` attribute has been added to shows to aid in migration.
+
 Our aim for this was to allow users to carry on uploading the rather large (~100Mb)
 files without having to implement something fancy on the admin side for reliably
 working with such size uploads.
