@@ -32,6 +32,9 @@ class ShowAdmin(admin.ModelAdmin):
         ('iTunes', {
             'fields': ('subtitle', 'summary', 'category', 'keywords', ('explicit', 'block'), 'redirect', 'itunes')
         }),
+        ('Migration', {
+            'fields': ('new_feed_url', )
+        }),
     )
     raw_id_fields = ('author','webmaster',)
 

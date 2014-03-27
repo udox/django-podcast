@@ -188,6 +188,7 @@ class Show(models.Model):
     redirect = models.URLField(help_text='The show\'s new URL feed if changing the URL of the current show feed. Must continue old feed for at least two weeks and write a 301 redirect for old feed.', blank=True)
     keywords = models.CharField(max_length=255, help_text='A comma-demlimited list of up to 12 words for iTunes searches. Perhaps include misspellings of the title.', blank=True)
     itunes = models.URLField('iTunes Store URL', help_text='Fill this out after saving this show and at least one episode. URL should look like "http://phobos.apple.com/WebObjects/MZStore.woa/wa/viewPodcast?id=000000000". See <a href="https://github.com/jefftriplett/django-podcast">documentation</a> for more.', blank=True)
+    new_feed_url = models.URLField('New Feed URL', help_text='If you are migrating your podcast away set this to the URL of the new feed so subscribers can migrate', blank=True, null=True)
 
     class Meta:
         ordering = ['organization', 'slug']

@@ -10,6 +10,7 @@
     <managingEditor>{% for author in object.author.all %}{% if forloop.first %}{% else %}{% if forloop.last %} and {% else %}, {% endif %}{% endif %}{{ author.email }} ({{ author.first_name }} {{ author.last_name }}){% endfor %}</managingEditor>
     {% if object.author.email or object.webmaster.email %}<webMaster>{% if object.webmaster.email %}{{ object.webmaster.email }} {% if object.webmaster.first_name or object.webmaster.last_name %}({{ object.webmaster.first_name }} {{ object.webmaster.last_name }}){% endif %}{% else %}{% endif %}</webMaster>{% endif %}
     <lastBuildDate>{{ object.episode_set.published.0.date|date:"r" }}</lastBuildDate>
+    {% if object.new_feed_url %}<itunes:new-feed-url>{{ object.new_feed_url }}</itunes:new-feed-url>{% endif %}
     {% if object.category_show %}<category{% if object.domain %} domain="{{ object.domain }}"{% endif %}>{{ object.category_show }}</category>{% endif %}
     <generator>Django Web Framework</generator>
     <docs>http://blogs.law.harvard.edu/tech/rss</docs>
